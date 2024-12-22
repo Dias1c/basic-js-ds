@@ -24,44 +24,43 @@ class BinarySearchTree {
       return;
     }
 
-    let added = false;
-    let parent = this.head;
-    while (!added) {
-      if (data < parent.data) {
-        if (parent.left == null) {
-          parent.left = n;
+    let current = this.head;
+    while (current.data !== data) {
+      if (data < current.data) {
+        if (current.left == null) {
+          current.left = n;
           return;
         }
-        parent = parent.left;
+        current = current.left;
         continue;
       }
 
-      if (parent.data < data) {
-        if (parent.right == null) {
-          parent.right = n;
+      if (current.data < data) {
+        if (current.right == null) {
+          current.right = n;
           return;
         }
-        parent = parent.right;
+        current = current.right;
         continue;
       }
     }
   }
 
   has(data) {
-    let parent = this.head;
+    let current = this.head;
 
-    while (parent != null) {
-      if (parent.data === data) {
+    while (current != null) {
+      if (current.data === data) {
         return true;
       }
 
-      if (data < parent.data) {
-        parent = parent.left;
+      if (data < current.data) {
+        current = current.left;
         continue;
       }
 
-      if (parent.data < data) {
-        parent = parent.right;
+      if (current.data < data) {
+        current = current.right;
         continue;
       }
     }
@@ -70,20 +69,20 @@ class BinarySearchTree {
   }
 
   find(data) {
-    let parent = this.head;
+    let current = this.head;
 
-    while (parent != null) {
-      if (parent.data === data) {
-        return parent;
+    while (current != null) {
+      if (current.data === data) {
+        return current;
       }
 
-      if (data < parent.data) {
-        parent = parent.left;
+      if (data < current.data) {
+        current = current.left;
         continue;
       }
 
-      if (parent.data < data) {
-        parent = parent.right;
+      if (current.data < data) {
+        current = current.right;
         continue;
       }
     }
@@ -91,29 +90,32 @@ class BinarySearchTree {
     return null;
   }
 
-  remove(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
-  }
+  remove(data) {}
 
   min() {
-    let parent = this.head;
-    while (true) {
-      if (parent?.left == null) {
-        return parent.data;
-      }
-      parent = parent.left;
+    console.log("min");
+    let current = this.head;
+    if (current == null) {
+      return null;
     }
+
+    while (current.left != null) {
+      current = current.left;
+    }
+    return current.data;
   }
 
   max() {
-    let parent = this.head;
-    while (true) {
-      if (parent?.right == null) {
-        return parent.data;
-      }
-      parent = parent.right;
+    console.log("max");
+    let current = this.head;
+    if (current == null) {
+      return null;
     }
+
+    while (current.right != null) {
+      current = current.right;
+    }
+    return current.data;
   }
 }
 
