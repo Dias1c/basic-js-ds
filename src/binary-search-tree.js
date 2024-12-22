@@ -27,20 +27,22 @@ class BinarySearchTree {
     let added = false;
     let parent = this.head;
     while (!added) {
-      if (parent.data < data) {
+      if (data < parent.data) {
         if (parent.left == null) {
           parent.left = n;
           return;
         }
         parent = parent.left;
+        continue;
       }
 
-      if (parent.data > data) {
+      if (parent.data < data) {
         if (parent.right == null) {
           parent.right = n;
           return;
         }
         parent = parent.right;
+        continue;
       }
     }
   }
@@ -49,24 +51,44 @@ class BinarySearchTree {
     let parent = this.head;
 
     while (parent != null) {
-      if (parent.value === data) {
+      if (parent.data === data) {
         return true;
       }
 
       if (data < parent.data) {
         parent = parent.left;
+        continue;
       }
 
       if (parent.data < data) {
         parent = parent.right;
+        continue;
       }
     }
+
     return false;
   }
 
-  find(/* data */) {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+  find(data) {
+    let parent = this.head;
+
+    while (parent != null) {
+      if (parent.data === data) {
+        return parent;
+      }
+
+      if (data < parent.data) {
+        parent = parent.left;
+        continue;
+      }
+
+      if (parent.data < data) {
+        parent = parent.right;
+        continue;
+      }
+    }
+
+    return null;
   }
 
   remove(/* data */) {
@@ -75,13 +97,23 @@ class BinarySearchTree {
   }
 
   min() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    let parent = this.head;
+    while (true) {
+      if (parent?.left == null) {
+        return parent.data;
+      }
+      parent = parent.left;
+    }
   }
 
   max() {
-    throw new NotImplementedError("Not implemented");
-    // remove line with error and write your code here
+    let parent = this.head;
+    while (true) {
+      if (parent?.right == null) {
+        return parent.data;
+      }
+      parent = parent.right;
+    }
   }
 }
 
