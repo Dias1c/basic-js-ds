@@ -90,7 +90,66 @@ class BinarySearchTree {
     return null;
   }
 
-  remove(data) {}
+  remove(data) {
+    if (this.head == null) {
+      return;
+    }
+
+    let parent = null;
+    let nodeToRemove = this.head;
+    while (nodeToRemove != null && nodeToRemove.data !== data) {
+      if (nodeToRemove.data === data) {
+        break;
+      }
+
+      if (data < nodeToRemove.data) {
+        parent = nodeToRemove;
+        nodeToRemove = nodeToRemove.left;
+        continue;
+      }
+
+      if (nodeToRemove.data < data) {
+        parent = nodeToRemove;
+        nodeToRemove = nodeToRemove.right;
+        continue;
+      }
+    }
+
+    if (nodeToRemove == null) {
+      return;
+    }
+
+    let nodes = [];
+    let stack = [nodeToRemove];
+    while (stack.length > 0) {
+      const node = stack[0];
+      if (node.left) {
+        stack.push(node.left);
+        nodes.push(node.left.data);
+      }
+      if (node.right) {
+        stack.push(node.right);
+        nodes.push(node.right.data);
+      }
+      stack.shift();
+    }
+
+    let tree = new BinarySearchTree();
+    for (let i = 0; i < nodes.length; i++) {
+      tree.add(nodes[i]);
+    }
+
+    if (parent == null) {
+      this.head = null;
+      this.head = tree.head;
+    } else if (parent.left == nodeToRemove) {
+      parent.left = null;
+      parent.left = tree.head;
+    } else if (parent.right == nodeToRemove) {
+      parent.right = null;
+      parent.right = tree.head;
+    }
+  }
 
   min() {
     console.log("min");
